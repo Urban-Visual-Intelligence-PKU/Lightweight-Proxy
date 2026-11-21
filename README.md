@@ -4,20 +4,18 @@
 
 ## 配置
 
-在仓库根目录复制模板，任选一个配置名：
+在仓库根目录复制 `config/template.yaml`，将副本重命名为 `<姓名>.yaml`，并按文件中的注释填写。
 
 ```bash
-(umask 077 && cp config/template.yaml config/ruizhe.yaml)
+(umask 077 && cp config/template.yaml "config/<姓名>.yaml")
 ```
 
-编辑 `config/ruizhe.yaml`，填写服务商提供的 `server`、`port` 和 `password`。密码请加引号。`proxy_port` 是本地 HTTP / SOCKS5 监听端口，默认是 `7897`。如有单独的 SNI，填写 `sni`。
-
-个人配置文件已加入 Git 忽略规则。请将凭据填入个人配置。
+把命令里的 `<姓名>` 替换成自己的姓名拼音。文件名支持英文字母、数字、下划线和连字符。个人配置文件由 Git 忽略。
 
 ## 启动
 
 ```bash
-./bin/kato.sh up --config ruizhe
+./bin/kato.sh up --config "<姓名>"
 source ./bin/kato-tmux.sh
 ```
 
