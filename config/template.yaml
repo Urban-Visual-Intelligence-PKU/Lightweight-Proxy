@@ -1,9 +1,16 @@
+# 服务商提供的 AnyTLS 服务器地址、端口和密码。密码请保留引号。
 server: "anytls.example.com"
 port: 443
 password: ""
+
+# 本地 HTTP / SOCKS5 代理端口，默认 7897。
 proxy_port: 7897
 
-# 可选
+# 可选：服务商指定的 SNI，默认与 server 相同。
 # sni: "anytls.example.com"
+
+# 可选：是否跳过证书校验，默认 false。
 # skip_cert_verify: false
+
+# 可选：节点显示名称，默认 anytls。
 # name: "anytls"
