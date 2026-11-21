@@ -1,0 +1,20 @@
+# 运行时产物（默认在 ~/.local/share/clash，但防止有人在仓库目录内运行时误提交）
+mihomo
+*.gz
+*.part
+config.yaml
+config.yaml.new
+geoip.metadb
+geoip.dat
+geosite.dat
+Country.mmdb
+*.mmdb
+clash.log
+clash.pid
+cache.db
+
+# 旧中继运行时（可能含凭证，继续屏蔽，勿提交）
+kato-runtime/
+
+# 本地密钥（AnyTLS 口令等），模板见 .env.example
+.env
