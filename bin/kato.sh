@@ -1,25 +1,26 @@
 #!/usr/bin/env bash
 #
-# clash.sh —— 在 Linux 上「从零」安装并运行 Clash 内核（mihomo / Clash.Meta），
+# kato.sh —— 在 Linux 上「从零」安装并运行 Clash 内核（mihomo / Clash.Meta），
 #             使用指定订阅，全程无需 root 权限。
 #
 # 用法：
-#   ./clash.sh install      # 下载内核 + GeoIP 数据（可用 GitHub 镜像加速）
-#   ./clash.sh subscribe    # 拉取订阅并生成 config.yaml（会自动做安全加固）
-#   ./clash.sh start        # 后台启动代理
-#   ./clash.sh status       # 查看运行状态，并通过代理做一次连通性测试
-#   ./clash.sh proxies      # 列出所有代理组和当前选中的节点
-#   ./clash.sh nodes [组名] # 列出某组可选节点（带序号；默认 🔰国外流量）
-#   ./clash.sh select 组名 序号|节点名   # 选择该组走哪个节点
-#   ./clash.sh test [组名]  # 测试组内各节点延迟，挑快的
-#   ./clash.sh stop         # 停止代理
-#   ./clash.sh restart      # 重启
-#   ./clash.sh env          # 打印代理环境变量（配合 eval 使用）
-#   ./clash.sh setup        # = install + subscribe + start 一条龙
-#   ./clash.sh log          # 跟踪日志
+#   ./bin/kato.sh up --config ruizhe  # 使用 config/ruizhe.yaml 启动 AnyTLS
+#   ./bin/kato.sh install      # 下载内核 + GeoIP 数据（可用 GitHub 镜像加速）
+#   ./bin/kato.sh subscribe    # 拉取订阅并生成 config.yaml（会自动做安全加固）
+#   ./bin/kato.sh start        # 后台启动代理
+#   ./bin/kato.sh status       # 查看运行状态，并通过代理做一次连通性测试
+#   ./bin/kato.sh proxies      # 列出所有代理组和当前选中的节点
+#   ./bin/kato.sh nodes [组名] # 列出某组可选节点（带序号；默认 🔰国外流量）
+#   ./bin/kato.sh select 组名 序号|节点名   # 选择该组走哪个节点
+#   ./bin/kato.sh test [组名]  # 测试组内各节点延迟，挑快的
+#   ./bin/kato.sh stop         # 停止代理
+#   ./bin/kato.sh restart      # 重启
+#   ./bin/kato.sh env          # 打印代理环境变量（配合 eval 使用）
+#   ./bin/kato.sh setup        # = install + subscribe + start 一条龙
+#   ./bin/kato.sh log          # 跟踪日志
 #
-# 让当前 shell 走代理：   eval "$(./clash.sh env)"
-# 取消代理：             eval "$(./clash.sh env off)"
+# 让当前 shell 走代理：   eval "$(./bin/kato.sh env)"
+# 取消代理：             eval "$(./bin/kato.sh env off)"
 #
 # 环境变量：
 #   SUB_URL      订阅地址（必填，含私密令牌，不写死在代码里）
@@ -515,6 +516,7 @@ usage() {
 # --------------------------------------------------------------- 入口分发 ---
 
 case "${1:-}" in
+    up)        shift; exec "$(dirname "$0")/kato-anytls-up.sh" "$@" ;;
     install)   cmd_install ;;
     subscribe|sub) cmd_subscribe ;;
     start)     cmd_start ;;

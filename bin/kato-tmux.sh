@@ -3,15 +3,15 @@
 # Kato tmux/session proxy switch
 #
 # 开启：
-#   source ~/kato/kato-tmux.sh
-#   source ~/kato/kato-tmux.sh on
+#   source ~/kato/bin/kato-tmux.sh
+#   source ~/kato/bin/kato-tmux.sh on
 #
 # 关闭：
-#   source ~/kato/kato-tmux.sh off
+#   source ~/kato/bin/kato-tmux.sh off
 #
 # 推荐在 ~/.bashrc 中添加：
-#   alias kato='source ~/kato/kato-tmux.sh'
-#   alias katooff='source ~/kato/kato-tmux.sh off'
+#   alias kato='source ~/kato/bin/kato-tmux.sh'
+#   alias katooff='source ~/kato/bin/kato-tmux.sh off'
 #
 # 注意：
 #   - 本脚本必须使用 source 运行
@@ -101,7 +101,7 @@ if [ ! -f "$_gp_config" ]; then
     echo "    $_gp_config"
     echo
     echo "[!] 请先运行："
-    echo "    $_gp_dir/kato-anytls-up.sh"
+    echo "    $_gp_dir/kato.sh up --config <名称>"
 
     _gp_cleanup
     unset -f _gp_cleanup
@@ -129,7 +129,7 @@ if ! (exec 3<>"/dev/tcp/127.0.0.1/${_gp_port}") 2>/dev/null; then
     echo "[!] Mihomo 未在 127.0.0.1:${_gp_port} 监听"
     echo
     echo "[!] 请先运行："
-    echo "    $_gp_dir/kato-anytls-up.sh"
+    echo "    $_gp_dir/kato.sh up --config <名称>"
     echo
     echo "[!] 或检查："
     echo "    ss -lntp | grep ${_gp_port}"

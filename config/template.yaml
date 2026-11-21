@@ -1,0 +1,9 @@
+server: "anytls.example.com"
+port: 443
+password: ""
+proxy_port: 7897
+
+# 可选
+# sni: "anytls.example.com"
+# skip_cert_verify: false
+# name: "anytls"

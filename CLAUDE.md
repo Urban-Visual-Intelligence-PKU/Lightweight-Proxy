@@ -8,8 +8,11 @@
 纯用户态 HTTP/SOCKS 代理：不装 systemd 服务、不开 TUN、不改 iptables，普通用户即可运行。
 
 ## 文件
-- `clash.sh` —— 全部逻辑。子命令：`install / subscribe / start / stop / restart / status / env /
+- `bin/kato.sh` —— 内核安装、进程管理和订阅。子命令：`install / subscribe / start / stop / restart / status / env /
   proxies / nodes / select / test / diag / log / setup`。
+- `bin/kato-anytls-up.sh` —— 读取 `config/<名称>.yaml`，生成 AnyTLS 配置并启动代理。
+- `bin/kato-tmux.sh` —— 在当前 Bash 会话中启用或关闭代理。
+- `config/template.yaml` —— 本地配置模板。
 - `README.md` —— 面向使用者的说明。
 - `.gitignore` —— 屏蔽运行时产物（内核二进制、`config.yaml`、日志、GeoIP 等）。
 
@@ -44,8 +47,8 @@
 | `NO_MIRROR=1` | 只走直连 |
 
 ## 改完怎么验证（本机可能无法真正跑 clash）
-- `bash -n clash.sh` 语法检查。
-- 端口解析：造一个含 `port:`/`socks-port:` 的 `config.yaml`，`CLASH_HOME=... ./clash.sh env` 看输出。
+- `for script in bin/*.sh; do bash -n "$script"; done` 语法检查。
+- 端口解析：造一个含 `port:`/`socks-port:` 的 `config.yaml`，`CLASH_HOME=... ./bin/kato.sh env` 看输出。
 - 内核 URL 解析：`resolve_core_url` 应返回 `mihomo-linux-<arch>-...gz` 直链且可下载。
 - 不要在"仅用于打包"的机器上真正 `install`/`start`。
 

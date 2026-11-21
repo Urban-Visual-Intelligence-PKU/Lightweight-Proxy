@@ -1,29 +1,30 @@
 # Kato
 
-在 Linux 上运行 AnyTLS 代理，无需 root 权限。
+在 Linux 上运行 AnyTLS 代理，无需 root 权限。启动脚本需要 Python 3 和 PyYAML。
 
 ## 配置
 
-在仓库目录下复制配置模板：
+在仓库根目录复制模板，任选一个配置名：
 
 ```bash
-cp .env.example .env
-chmod 600 .env
+(umask 077 && cp config/template.yaml config/ruizhe.yaml)
 ```
 
-编辑 `.env`，填写服务商提供的 `ANYTLS_SERVER`（服务器地址）、`ANYTLS_PORT`（端口）和 `ANYTLS_PASSWORD`（密码）。如果服务商另有指定，填写 `ANYTLS_SNI`。
+编辑 `config/ruizhe.yaml`，填写服务商提供的 `server`、`port` 和 `password`。密码请加引号。`proxy_port` 是本地 HTTP / SOCKS5 监听端口，默认是 `7897`。如有单独的 SNI，填写 `sni`。
 
-`.env` 已被 Git 忽略。请只在本机填写密码。
+个人配置文件已加入 Git 忽略规则。请将凭据填入个人配置。
 
 ## 启动
 
 ```bash
-./kato-anytls-up.sh
-source ./kato-tmux.sh
+./bin/kato.sh up --config ruizhe
+source ./bin/kato-tmux.sh
 ```
 
-修改配置后，重新运行 `./kato-anytls-up.sh`。每个需要使用代理的 shell 或 tmux 窗格都要执行 `source ./kato-tmux.sh`。在当前 shell 中取消代理：
+`--config` 填写文件名去掉 `.yaml` 后的名称。启动成功后，终端会打印本地代理地址，例如 `127.0.0.1:7897`。修改配置后，重新执行启动命令。
+
+在当前 shell 中关闭代理：
 
 ```bash
-source ./kato-tmux.sh off
+source ./bin/kato-tmux.sh off
 ```
